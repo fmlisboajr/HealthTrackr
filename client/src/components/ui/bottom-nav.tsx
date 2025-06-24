@@ -1,5 +1,4 @@
 import { Link, useLocation } from "wouter";
-import { Button } from "@/components/ui/button";
 import { Home, List, Plus, History } from "lucide-react";
 
 export default function BottomNav() {
