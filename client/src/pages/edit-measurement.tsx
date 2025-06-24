@@ -26,13 +26,13 @@ const measurementSchema = z.object({
 
 type MeasurementForm = z.infer<typeof measurementSchema>;
 
-export default function EditMeasurement() {
-  const [, navigate] = useLocation();
+export default function EditMeasurement(props: any) {
+  const [location, navigate] = useLocation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   
-  // Get measurement ID from URL params
-  const measurementId = parseInt(window.location.pathname.split('/').pop() || '0');
+  // Get measurement ID from URL params - try props first, then location
+  const measurementId = props?.params?.id ? parseInt(props.params.id) : parseInt(location.split('/').pop() || '0');
 
   const { data: measurement, isLoading: measurementLoading } = useQuery({
     queryKey: [`/api/measurements/${measurementId}`],
