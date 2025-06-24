@@ -41,13 +41,23 @@ function Router() {
 function AppContent() {
   const { isAuthenticated, isLoading } = useAuth();
 
-  return (
-    <>
-      <div className="min-h-screen pb-20">
-        <Router />
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div>Carregando...</div>
       </div>
-      {isAuthenticated && !isLoading && <BottomNav />}
-    </>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return <Router />;
+  }
+
+  return (
+    <div className="min-h-screen pb-20 relative">
+      <Router />
+      <BottomNav />
+    </div>
   );
 }
 
