@@ -18,10 +18,8 @@ import NotFound from "@/pages/not-found";
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
 
-  console.log("Auth state:", { isAuthenticated, isLoading });
-
   return (
-    <>
+    <div className="min-h-screen">
       <Switch>
         {isLoading || !isAuthenticated ? (
           <Route path="/" component={Landing} />
@@ -38,8 +36,13 @@ function Router() {
         )}
         <Route component={NotFound} />
       </Switch>
-      {!isLoading && isAuthenticated && <BottomNav />}
-    </>
+      {isAuthenticated && !isLoading && (
+        <>
+          {console.log("Renderizando BottomNav - Auth:", isAuthenticated, "Loading:", isLoading)}
+          <BottomNav />
+        </>
+      )}
+    </div>
   );
 }
 
