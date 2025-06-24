@@ -114,6 +114,8 @@ Changelog:
 - Improved user experience with better data visualization
 - Added comprehensive history page with detailed analytics and context breakdown
 - Implemented multi-metric dashboard with summary cards and trend analysis
+- Updated charts to use smooth Bézier curves for better visual flow
+- Fixed navigation alignment and implemented global bottom navigation
 ```
 
 ## User Preferences

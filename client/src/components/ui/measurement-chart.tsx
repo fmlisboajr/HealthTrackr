@@ -80,15 +80,16 @@ export default function MeasurementChart({ measurements, measurementType }: Meas
             }}
           />
           <Line
-            type="monotone"
+            type="basis"
             dataKey="value"
             stroke="hsl(var(--primary))"
-            strokeWidth={4}
-            dot={{ fill: "hsl(var(--primary))", strokeWidth: 2, stroke: "white", r: 6 }}
-            activeDot={{ r: 8, stroke: "hsl(var(--primary))", strokeWidth: 3, fill: "white", filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.1))" }}
+            strokeWidth={3}
+            dot={{ fill: "hsl(var(--primary))", strokeWidth: 2, stroke: "white", r: 5 }}
+            activeDot={{ r: 7, stroke: "hsl(var(--primary))", strokeWidth: 2, fill: "white" }}
             connectNulls={false}
             strokeLinecap="round"
             strokeLinejoin="round"
+            tension={0.4}
           />
         </LineChart>
       </ResponsiveContainer>
