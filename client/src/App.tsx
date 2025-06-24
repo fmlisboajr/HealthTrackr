@@ -18,6 +18,8 @@ import NotFound from "@/pages/not-found";
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
 
+  console.log("Auth state:", { isAuthenticated, isLoading });
+
   return (
     <>
       <Switch>
@@ -36,7 +38,7 @@ function Router() {
         )}
         <Route component={NotFound} />
       </Switch>
-      {isAuthenticated && <BottomNav />}
+      {!isLoading && isAuthenticated && <BottomNav />}
     </>
   );
 }

@@ -7,7 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { isUnauthorizedError } from "@/lib/authUtils";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import GlassCard from "@/components/ui/glass-card";
-import BottomNav from "@/components/ui/bottom-nav";
+
 import { ArrowLeft, Plus, Edit, Trash2, Calendar, Filter } from "lucide-react";
 import type { Measurement, MeasurementType, FoodContext } from "@shared/schema";
 
@@ -241,7 +241,7 @@ export default function Measurements() {
         )}
       </main>
 
-      <BottomNav />
+
     </div>
   );
 }
