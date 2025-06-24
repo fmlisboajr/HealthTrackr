@@ -278,8 +278,6 @@ export default function Home() {
           </GlassCard>
         </Link>
       </main>
-
-
     </div>
   );
 }

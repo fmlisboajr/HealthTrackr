@@ -1,39 +1,39 @@
 import { Link, useLocation } from "wouter";
-import { Home, List, Plus, History } from "lucide-react";
+import { TrendingUp, Calendar, BarChart3, Users } from "lucide-react";
 
 export default function BottomNav() {
   const [location] = useLocation();
 
   const navItems = [
-    { path: "/", icon: Home, label: "Início" },
-    { path: "/measurements", icon: List, label: "Medições" },
-    { path: "/add-measurement", icon: Plus, label: "Adicionar" },
-    { path: "/history", icon: History, label: "Histórico" },
+    { path: "/", icon: TrendingUp, label: "Início" },
+    { path: "/history", icon: Calendar, label: "Histórico" },
+    { path: "/statistics", icon: BarChart3, label: "Estatísticas" },
+    { path: "/doctor-access", icon: Users, label: "Compartilhar" },
   ];
 
-
-
   return (
-    <nav className="fixed bottom-0 left-0 right-0 glass-effect p-4 z-50 border-t border-white/10">
-      <div className="max-w-md mx-auto flex justify-between gap-2">
-        {navItems.map(({ path, icon: Icon, label }) => {
-          const isActive = location === path;
-          
-          return (
-            <Link key={path} href={path} className="flex-1">
-              <div
-                className={`flex flex-col items-center space-y-1 px-3 py-2 rounded-xl transition-all duration-200 ${
-                  isActive 
-                    ? "text-primary bg-primary/15 shadow-sm" 
-                    : "text-gray-500 hover:text-primary hover:bg-primary/5"
-                }`}
-              >
-                <Icon size={20} />
-                <span className="text-xs font-medium">{label}</span>
-              </div>
-            </Link>
-          );
-        })}
+    <nav className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-gray-200 z-50">
+      <div className="max-w-md mx-auto px-4 py-2">
+        <div className="flex justify-around">
+          {navItems.map(({ path, icon: Icon, label }) => {
+            const isActive = location === path;
+            
+            return (
+              <Link key={path} href={path} className="flex-1">
+                <div
+                  className={`flex flex-col items-center py-2 px-3 rounded-lg transition-all duration-200 ${
+                    isActive 
+                      ? "text-blue-600 bg-blue-50" 
+                      : "text-gray-500 hover:text-blue-600"
+                  }`}
+                >
+                  <Icon size={24} className="mb-1" />
+                  <span className="text-xs font-medium">{label}</span>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </nav>
   );

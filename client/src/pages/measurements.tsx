@@ -240,8 +240,6 @@ export default function Measurements() {
           </GlassCard>
         )}
       </main>
-
-
     </div>
   );
 }
