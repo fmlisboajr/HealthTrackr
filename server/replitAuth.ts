@@ -84,8 +84,12 @@ export async function setupAuth(app: Express) {
     verified(null, user);
   };
 
-  for (const domain of process.env
-    .REPLIT_DOMAINS!.split(",")) {
+  // Get all domains including custom ones
+  const replitDomains = process.env.REPLIT_DOMAINS!.split(",");
+  const customDomains = process.env.CUSTOM_DOMAINS ? process.env.CUSTOM_DOMAINS.split(",") : [];
+  const allDomains = [...replitDomains, ...customDomains];
+
+  for (const domain of allDomains) {
     const strategy = new Strategy(
       {
         name: `replitauth:${domain}`,
@@ -102,14 +106,40 @@ export async function setupAuth(app: Express) {
   passport.deserializeUser((user: Express.User, cb) => cb(null, user));
 
   app.get("/api/login", (req, res, next) => {
-    passport.authenticate(`replitauth:${req.hostname}`, {
+    const hostname = req.hostname;
+    const strategyName = `replitauth:${hostname}`;
+    
+    // Check if strategy exists, if not use the first available strategy
+    const strategy = passport._strategy(strategyName);
+    const fallbackStrategy = Object.keys(passport._strategies).find(name => name.startsWith('replitauth:'));
+    
+    const authStrategy = strategy ? strategyName : fallbackStrategy;
+    
+    if (!authStrategy) {
+      return res.status(500).json({ message: "No authentication strategy available" });
+    }
+    
+    passport.authenticate(authStrategy, {
       prompt: "login consent",
       scope: ["openid", "email", "profile", "offline_access"],
     })(req, res, next);
   });
 
   app.get("/api/callback", (req, res, next) => {
-    passport.authenticate(`replitauth:${req.hostname}`, {
+    const hostname = req.hostname;
+    const strategyName = `replitauth:${hostname}`;
+    
+    // Check if strategy exists, if not use the first available strategy
+    const strategy = passport._strategy(strategyName);
+    const fallbackStrategy = Object.keys(passport._strategies).find(name => name.startsWith('replitauth:'));
+    
+    const authStrategy = strategy ? strategyName : fallbackStrategy;
+    
+    if (!authStrategy) {
+      return res.status(500).json({ message: "No authentication strategy available" });
+    }
+    
+    passport.authenticate(authStrategy, {
       successReturnToOrRedirect: "/",
       failureRedirect: "/api/login",
     })(req, res, next);
