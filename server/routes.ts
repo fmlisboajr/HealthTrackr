@@ -63,15 +63,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/measurements', isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
+      console.log("Received measurement data:", req.body);
+      
       const measurementData = insertMeasurementSchema.parse({
         ...req.body,
         userId,
+        measuredAt: new Date(req.body.measuredAt),
       });
       
       const measurement = await storage.createMeasurement(measurementData);
       res.json(measurement);
     } catch (error) {
       if (error instanceof z.ZodError) {
+        console.error("Validation errors:", error.errors);
         return res.status(400).json({ message: "Invalid measurement data", errors: error.errors });
       }
       console.error("Error creating measurement:", error);

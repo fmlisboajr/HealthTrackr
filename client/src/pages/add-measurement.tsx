@@ -20,8 +20,8 @@ import type { MeasurementType, FoodContext } from "@shared/schema";
 
 const measurementSchema = z.object({
   measurementTypeId: z.number().min(1, "Selecione um tipo de medição"),
-  value: z.string().min(1, "Digite um valor").transform(val => parseFloat(val)),
-  measuredAt: z.string().min(1, "Data e hora são obrigatórias").transform(val => new Date(val)),
+  value: z.string().min(1, "Digite um valor"),
+  measuredAt: z.string().min(1, "Data e hora são obrigatórias"),
   foodContextId: z.number().optional(),
   notes: z.string().optional(),
 });
@@ -62,6 +62,8 @@ export default function AddMeasurement() {
     mutationFn: async (data: MeasurementForm) => {
       await apiRequest("POST", "/api/measurements", {
         ...data,
+        value: data.value,
+        measuredAt: new Date(data.measuredAt).toISOString(),
         foodContextId: selectedContext || undefined,
       });
     },
