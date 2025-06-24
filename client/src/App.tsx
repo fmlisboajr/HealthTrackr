@@ -38,17 +38,23 @@ function Router() {
   );
 }
 
-function App() {
+function AppContent() {
   const { isAuthenticated, isLoading } = useAuth();
 
+  return (
+    <div className="min-h-screen">
+      <Router />
+      {isAuthenticated && !isLoading && <BottomNav />}
+    </div>
+  );
+}
+
+function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        <div className="min-h-screen">
-          <Router />
-          {isAuthenticated && !isLoading && <BottomNav />}
-        </div>
+        <AppContent />
       </TooltipProvider>
     </QueryClientProvider>
   );
