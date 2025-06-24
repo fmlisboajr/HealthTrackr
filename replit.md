@@ -110,6 +110,8 @@ Changelog:
 - Implemented charts and statistics dashboard
 - Fixed validation issues in measurement registration
 - Added PWA capabilities with service worker
+- Enhanced charts with smooth curved lines and gradient fill areas
+- Improved user experience with better data visualization
 ```
 
 ## User Preferences
