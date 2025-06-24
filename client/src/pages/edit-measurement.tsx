@@ -79,8 +79,11 @@ export default function EditMeasurement(props: any) {
   const updateMeasurement = useMutation({
     mutationFn: async (data: MeasurementForm) => {
       const measurementData = {
-        ...data,
-        measuredAt: new Date(data.measuredAt).toISOString(),
+        value: data.value,
+        measurementTypeId: data.measurementTypeId,
+        foodContextId: data.foodContextId,
+        measuredAt: data.measuredAt, // Send as string, server will convert
+        notes: data.notes || null,
       };
       const response = await apiRequest(`/api/measurements/${measurementId}`, {
         method: "PATCH",

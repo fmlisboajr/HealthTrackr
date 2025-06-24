@@ -109,7 +109,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ message: "Measurement not found" });
       }
       
-      const measurement = await storage.updateMeasurement(measurementId, req.body);
+      // Convert measuredAt string to Date object if it exists
+      const updateData = {
+        ...req.body,
+        measuredAt: req.body.measuredAt ? new Date(req.body.measuredAt) : undefined,
+      };
+      
+      const measurement = await storage.updateMeasurement(measurementId, updateData);
       res.json(measurement);
     } catch (error) {
       console.error("Error updating measurement:", error);

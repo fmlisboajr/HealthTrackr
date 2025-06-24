@@ -63,10 +63,11 @@ export default function AddMeasurement() {
       await apiRequest("/api/measurements", {
         method: "POST",
         body: JSON.stringify({
-          ...data,
           value: data.value,
-          measuredAt: new Date(data.measuredAt).toISOString(),
-          foodContextId: selectedContext || undefined,
+          measurementTypeId: data.measurementTypeId,
+          foodContextId: selectedContext || data.foodContextId,
+          measuredAt: data.measuredAt, // Send as string, server will convert
+          notes: data.notes || null,
         }),
       });
     },
