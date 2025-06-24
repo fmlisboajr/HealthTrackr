@@ -19,22 +19,25 @@ import NotFound from "@/pages/not-found";
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
 
+  if (isLoading || !isAuthenticated) {
+    return (
+      <Switch>
+        <Route path="/" component={Landing} />
+        <Route component={NotFound} />
+      </Switch>
+    );
+  }
+
   return (
     <Switch>
-      {isLoading || !isAuthenticated ? (
-        <Route path="/" component={Landing} />
-      ) : (
-        <>
-          <Route path="/" component={Home} />
-          <Route path="/measurements" component={Measurements} />
-          <Route path="/add-measurement" component={AddMeasurement} />
-          <Route path="/edit-measurement/:id" component={EditMeasurement} />
-          <Route path="/statistics" component={Statistics} />
-          <Route path="/history" component={History} />
-          <Route path="/doctor-access" component={DoctorAccess} />
-          <Route path="/settings" component={Settings} />
-        </>
-      )}
+      <Route path="/" component={Home} />
+      <Route path="/measurements" component={Measurements} />
+      <Route path="/add-measurement" component={AddMeasurement} />
+      <Route path="/edit-measurement/:id" component={EditMeasurement} />
+      <Route path="/statistics" component={Statistics} />
+      <Route path="/history" component={History} />
+      <Route path="/doctor-access" component={DoctorAccess} />
+      <Route path="/settings" component={Settings} />
       <Route component={NotFound} />
     </Switch>
   );
@@ -51,14 +54,10 @@ function AppContent() {
     );
   }
 
-  if (!isAuthenticated) {
-    return <Router />;
-  }
-
   return (
     <div className="min-h-screen pb-20 relative">
       <Router />
-      <BottomNav />
+      {isAuthenticated && <BottomNav />}
     </div>
   );
 }
