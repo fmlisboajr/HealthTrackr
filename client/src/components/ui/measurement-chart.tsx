@@ -80,7 +80,7 @@ export default function MeasurementChart({ measurements, measurementType }: Meas
             }}
           />
           <Line
-            type="basis"
+            type="monotone"
             dataKey="value"
             stroke="#3B82F6"
             strokeWidth={2.5}
@@ -89,7 +89,6 @@ export default function MeasurementChart({ measurements, measurementType }: Meas
             connectNulls={false}
             strokeLinecap="round"
             strokeLinejoin="round"
-            tension={0.8}
           />
         </LineChart>
       </ResponsiveContainer>

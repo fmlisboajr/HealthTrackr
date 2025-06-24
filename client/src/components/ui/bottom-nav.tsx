@@ -11,7 +11,7 @@ export default function BottomNav() {
     { path: "/history", icon: History, label: "Histórico" },
   ];
 
-  console.log("BottomNav renderizado em:", location);
+
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 glass-effect p-4 z-50 border-t border-white/10">

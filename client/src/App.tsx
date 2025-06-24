@@ -19,39 +19,36 @@ function Router() {
   const { isAuthenticated, isLoading } = useAuth();
 
   return (
-    <div className="min-h-screen">
-      <Switch>
-        {isLoading || !isAuthenticated ? (
-          <Route path="/" component={Landing} />
-        ) : (
-          <>
-            <Route path="/" component={Home} />
-            <Route path="/measurements" component={Measurements} />
-            <Route path="/add-measurement" component={AddMeasurement} />
-            <Route path="/statistics" component={Statistics} />
-            <Route path="/history" component={History} />
-            <Route path="/doctor-access" component={DoctorAccess} />
-            <Route path="/settings" component={Settings} />
-          </>
-        )}
-        <Route component={NotFound} />
-      </Switch>
-      {isAuthenticated && !isLoading && (
+    <Switch>
+      {isLoading || !isAuthenticated ? (
+        <Route path="/" component={Landing} />
+      ) : (
         <>
-          {console.log("Renderizando BottomNav - Auth:", isAuthenticated, "Loading:", isLoading)}
-          <BottomNav />
+          <Route path="/" component={Home} />
+          <Route path="/measurements" component={Measurements} />
+          <Route path="/add-measurement" component={AddMeasurement} />
+          <Route path="/statistics" component={Statistics} />
+          <Route path="/history" component={History} />
+          <Route path="/doctor-access" component={DoctorAccess} />
+          <Route path="/settings" component={Settings} />
         </>
       )}
-    </div>
+      <Route component={NotFound} />
+    </Switch>
   );
 }
 
 function App() {
+  const { isAuthenticated, isLoading } = useAuth();
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        <Router />
+        <div className="min-h-screen">
+          <Router />
+          {isAuthenticated && !isLoading && <BottomNav />}
+        </div>
       </TooltipProvider>
     </QueryClientProvider>
   );
