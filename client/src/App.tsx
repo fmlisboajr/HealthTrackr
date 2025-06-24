@@ -4,6 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useAuth } from "@/hooks/useAuth";
+import BottomNav from "@/components/ui/bottom-nav";
 import Landing from "@/pages/landing";
 import Home from "@/pages/home";
 import AddMeasurement from "@/pages/add-measurement";
@@ -18,22 +19,25 @@ function Router() {
   const { isAuthenticated, isLoading } = useAuth();
 
   return (
-    <Switch>
-      {isLoading || !isAuthenticated ? (
-        <Route path="/" component={Landing} />
-      ) : (
-        <>
-          <Route path="/" component={Home} />
-          <Route path="/measurements" component={Measurements} />
-          <Route path="/add-measurement" component={AddMeasurement} />
-          <Route path="/statistics" component={Statistics} />
-          <Route path="/history" component={History} />
-          <Route path="/doctor-access" component={DoctorAccess} />
-          <Route path="/settings" component={Settings} />
-        </>
-      )}
-      <Route component={NotFound} />
-    </Switch>
+    <>
+      <Switch>
+        {isLoading || !isAuthenticated ? (
+          <Route path="/" component={Landing} />
+        ) : (
+          <>
+            <Route path="/" component={Home} />
+            <Route path="/measurements" component={Measurements} />
+            <Route path="/add-measurement" component={AddMeasurement} />
+            <Route path="/statistics" component={Statistics} />
+            <Route path="/history" component={History} />
+            <Route path="/doctor-access" component={DoctorAccess} />
+            <Route path="/settings" component={Settings} />
+          </>
+        )}
+        <Route component={NotFound} />
+      </Switch>
+      {isAuthenticated && <BottomNav />}
+    </>
   );
 }
 

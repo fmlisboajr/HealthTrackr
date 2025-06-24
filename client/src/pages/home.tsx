@@ -7,7 +7,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import { isUnauthorizedError } from "@/lib/authUtils";
 import { apiRequest, queryClient } from "@/lib/queryClient";
-import BottomNav from "@/components/ui/bottom-nav";
+
 import GlassCard from "@/components/ui/glass-card";
 import { Heart, Plus, BarChart3, UserCheck, Settings, Droplets } from "lucide-react";
 import type { Measurement, MeasurementType, FoodContext } from "@shared/schema";
@@ -279,7 +279,7 @@ export default function Home() {
         </Link>
       </main>
 
-      <BottomNav />
+
     </div>
   );
 }
