@@ -112,6 +112,8 @@ Changelog:
 - Added PWA capabilities with service worker
 - Enhanced charts with smooth curved lines and gradient fill areas
 - Improved user experience with better data visualization
+- Added comprehensive history page with detailed analytics and context breakdown
+- Implemented multi-metric dashboard with summary cards and trend analysis
 ```
 
 ## User Preferences

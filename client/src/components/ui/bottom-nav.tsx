@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Home, List, Plus, BarChart3 } from "lucide-react";
+import { Home, List, Plus, History } from "lucide-react";
 
 export default function BottomNav() {
   const [location] = useLocation();
@@ -9,7 +9,7 @@ export default function BottomNav() {
     { path: "/", icon: Home, label: "Início" },
     { path: "/measurements", icon: List, label: "Medições" },
     { path: "/add-measurement", icon: Plus, label: "Adicionar" },
-    { path: "/statistics", icon: BarChart3, label: "Gráficos" },
+    { path: "/history", icon: History, label: "Histórico" },
   ];
 
   return (
