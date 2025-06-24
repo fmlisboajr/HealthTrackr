@@ -84,7 +84,7 @@ export default function Landing() {
               className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-6 rounded-2xl transition-colors duration-200"
               size="lg"
             >
-              Entrar com Replit
+              Entrar/Cadastrar
             </Button>
             
             <div className="mt-4 text-center">
