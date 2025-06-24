@@ -22,28 +22,31 @@ export default function Statistics() {
 
   // Fetch all measurements and filter on frontend
   const { data: allMeasurements = [] } = useQuery<Measurement[]>({
-    queryKey: ["/api/measurements", { limit: 1000 }],
+    queryKey: ["/api/measurements"],
     enabled: !!effectiveTypeId,
   });
 
-  // Filter measurements by date range
+  // Filter measurements by date range and measurement type
   const measurements = allMeasurements.filter(measurement => {
     const measurementDate = new Date(measurement.measuredAt);
     const cutoffDate = new Date(Date.now() - parseInt(selectedPeriod) * 24 * 60 * 60 * 1000);
-    return measurementDate >= cutoffDate;
+    return measurementDate >= cutoffDate && measurement.measurementTypeId === effectiveTypeId;
   });
 
-  // Fetch statistics
-  const { data: stats } = useQuery<{
-    average: number;
-    count: number;
-    min: number;
-    max: number;
-  }>({
-    queryKey: ["/api/statistics", effectiveTypeId],
-    queryFn: () => fetch(`/api/statistics/${effectiveTypeId}?days=${selectedPeriod}`).then(res => res.json()),
-    enabled: !!effectiveTypeId,
-  });
+  // Calculate statistics from filtered measurements
+  const stats = useMemo(() => {
+    if (measurements.length === 0) {
+      return { average: 0, count: 0, min: 0, max: 0 };
+    }
+
+    const values = measurements.map(m => parseFloat(m.value.toString()));
+    return {
+      average: Math.round((values.reduce((a, b) => a + b, 0) / values.length) * 100) / 100,
+      count: values.length,
+      min: Math.min(...values),
+      max: Math.max(...values),
+    };
+  }, [measurements]);
 
   // Fetch food contexts
   const { data: foodContexts = [] } = useQuery<FoodContext[]>({

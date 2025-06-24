@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip, Area, AreaChart } from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip } from "recharts";
 import type { Measurement, MeasurementType } from "@shared/schema";
 
 interface MeasurementChartProps {
@@ -44,13 +44,7 @@ export default function MeasurementChart({ measurements, measurementType }: Meas
   return (
     <div className="h-48 w-full">
       <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-          <defs>
-            <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
-              <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.05}/>
-            </linearGradient>
-          </defs>
+        <LineChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
           <XAxis 
             dataKey="date" 
@@ -85,20 +79,18 @@ export default function MeasurementChart({ measurements, measurementType }: Meas
               return null;
             }}
           />
-          <Area
+          <Line
             type="monotone"
             dataKey="value"
             stroke="hsl(var(--primary))"
             strokeWidth={4}
-            fill="url(#colorGradient)"
-            fillOpacity={1}
             dot={{ fill: "hsl(var(--primary))", strokeWidth: 2, stroke: "white", r: 6 }}
             activeDot={{ r: 8, stroke: "hsl(var(--primary))", strokeWidth: 3, fill: "white", filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.1))" }}
             connectNulls={false}
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-        </AreaChart>
+        </LineChart>
       </ResponsiveContainer>
     </div>
   );

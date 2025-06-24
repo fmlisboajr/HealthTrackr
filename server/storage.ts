@@ -93,7 +93,7 @@ export class DatabaseStorage implements IStorage {
     return result;
   }
 
-  async getMeasurements(userId: string, limit = 50): Promise<Measurement[]> {
+  async getMeasurements(userId: string, limit = 1000): Promise<Measurement[]> {
     return await db
       .select()
       .from(measurements)
