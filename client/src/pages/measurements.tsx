@@ -167,9 +167,17 @@ export default function Measurements() {
                             <div className="flex items-center space-x-3">
                               <div className="w-3 h-3 rounded-full bg-primary"></div>
                               <div>
-                                <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
-                                  {measurementDate}
-                                </p>
+                                <div className="flex justify-between items-center mb-1">
+                                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                                    {measurementDate}
+                                  </p>
+                                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                                    {new Date(measurement.measuredAt).toLocaleTimeString('pt-BR', {
+                                      hour: '2-digit',
+                                      minute: '2-digit'
+                                    })}
+                                  </p>
+                                </div>
                                 <p className="font-medium text-gray-800 dark:text-white">
                                   {type?.name || "Medição"}
                                 </p>
@@ -187,12 +195,6 @@ export default function Measurements() {
                               <div className="text-right">
                                 <p className="font-bold text-gray-800 dark:text-white">
                                   {measurement.value} {type?.unit}
-                                </p>
-                                <p className="text-xs text-gray-500">
-                                  {new Date(measurement.measuredAt).toLocaleTimeString('pt-BR', {
-                                    hour: '2-digit',
-                                    minute: '2-digit'
-                                  })}
                                 </p>
                               </div>
                               <div className="flex flex-col space-y-1">
