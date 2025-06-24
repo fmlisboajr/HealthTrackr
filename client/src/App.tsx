@@ -27,6 +27,7 @@ function Router() {
           <Route path="/measurements" component={Measurements} />
           <Route path="/add-measurement" component={AddMeasurement} />
           <Route path="/statistics" component={Statistics} />
+          <Route path="/history" component={History} />
           <Route path="/doctor-access" component={DoctorAccess} />
           <Route path="/settings" component={Settings} />
         </>
