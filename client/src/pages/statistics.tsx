@@ -20,13 +20,17 @@ export default function Statistics() {
   // Auto-select first type if available
   const effectiveTypeId = selectedTypeId || measurementTypes[0]?.id;
 
-  // Fetch measurements for the selected period
-  const { data: measurements = [] } = useQuery<Measurement[]>({
-    queryKey: ["/api/measurements/range", {
-      startDate: new Date(Date.now() - parseInt(selectedPeriod) * 24 * 60 * 60 * 1000).toISOString(),
-      endDate: new Date().toISOString(),
-    }],
+  // Fetch all measurements and filter on frontend
+  const { data: allMeasurements = [] } = useQuery<Measurement[]>({
+    queryKey: ["/api/measurements", { limit: 1000 }],
     enabled: !!effectiveTypeId,
+  });
+
+  // Filter measurements by date range
+  const measurements = allMeasurements.filter(measurement => {
+    const measurementDate = new Date(measurement.measuredAt);
+    const cutoffDate = new Date(Date.now() - parseInt(selectedPeriod) * 24 * 60 * 60 * 1000);
+    return measurementDate >= cutoffDate;
   });
 
   // Fetch statistics
@@ -36,7 +40,8 @@ export default function Statistics() {
     min: number;
     max: number;
   }>({
-    queryKey: ["/api/statistics", effectiveTypeId, { days: parseInt(selectedPeriod) }],
+    queryKey: ["/api/statistics", effectiveTypeId],
+    queryFn: () => fetch(`/api/statistics/${effectiveTypeId}?days=${selectedPeriod}`).then(res => res.json()),
     enabled: !!effectiveTypeId,
   });
 

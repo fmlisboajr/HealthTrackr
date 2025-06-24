@@ -13,7 +13,7 @@ import type { Measurement, MeasurementType, FoodContext } from "@shared/schema";
 
 export default function Measurements() {
   const { toast } = useToast();
-  const [selectedTypeId, setSelectedTypeId] = useState<string>("");
+  const [selectedTypeId, setSelectedTypeId] = useState<string>("all");
   const [selectedDateRange, setSelectedDateRange] = useState("7");
 
   // Fetch measurements
@@ -64,7 +64,7 @@ export default function Measurements() {
 
   // Filter measurements
   const filteredMeasurements = measurements.filter(measurement => {
-    const typeMatch = !selectedTypeId || measurement.measurementTypeId === parseInt(selectedTypeId);
+    const typeMatch = selectedTypeId === "" || selectedTypeId === "all" || measurement.measurementTypeId === parseInt(selectedTypeId);
     
     const dateRange = parseInt(selectedDateRange);
     const cutoffDate = new Date();
@@ -116,7 +116,7 @@ export default function Measurements() {
                 <SelectValue placeholder="Todos" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Todos os tipos</SelectItem>
+                <SelectItem value="all">Todos os tipos</SelectItem>
                 {measurementTypes.map((type) => (
                   <SelectItem key={type.id} value={type.id.toString()}>
                     {type.name}
@@ -225,7 +225,7 @@ export default function Measurements() {
             <div className="text-center py-8">
               <Calendar className="mx-auto mb-4 text-gray-400" size={48} />
               <p className="text-gray-600 dark:text-gray-300 mb-4">
-                {selectedTypeId || selectedDateRange !== "3650" 
+                {(selectedTypeId !== "all" && selectedTypeId !== "") || selectedDateRange !== "3650" 
                   ? "Nenhuma medição encontrada para os filtros selecionados"
                   : "Nenhuma medição registrada"
                 }

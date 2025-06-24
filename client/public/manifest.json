@@ -1,0 +1,53 @@
+{
+  "name": "HealthTracker - Registro de Medições de Saúde",
+  "short_name": "HealthTracker",
+  "description": "Monitore sua saúde com precisão. Registre medições de glicose, pressão arterial e outros indicadores.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3B82F6",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["health", "medical", "lifestyle"],
+  "shortcuts": [
+    {
+      "name": "Nova Medição",
+      "short_name": "Adicionar",
+      "description": "Registrar nova medição de saúde",
+      "url": "/add-measurement",
+      "icons": [
+        {
+          "src": "/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Estatísticas",
+      "short_name": "Gráficos",
+      "description": "Ver estatísticas e gráficos",
+      "url": "/statistics",
+      "icons": [
+        {
+          "src": "/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

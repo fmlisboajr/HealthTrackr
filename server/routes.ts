@@ -187,7 +187,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { doctorEmail } = req.body;
       
       // Find doctor by email
-      const doctor = await storage.getUser(doctorEmail);
+      const doctor = await storage.getUserByEmail(doctorEmail);
       if (!doctor || doctor.userType !== 'doctor') {
         return res.status(404).json({ message: "Doctor not found" });
       }
