@@ -83,6 +83,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get('/api/measurements/:id', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const measurementId = parseInt(req.params.id);
+      const measurement = await storage.getMeasurementById(measurementId, userId);
+      if (!measurement) {
+        return res.status(404).json({ message: "Measurement not found" });
+      }
+      res.json(measurement);
+    } catch (error) {
+      console.error("Error fetching measurement:", error);
+      res.status(500).json({ message: "Failed to fetch measurement" });
+    }
+  });
+
+  app.patch('/api/measurements/:id', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const measurementId = parseInt(req.params.id);
+      
+      // Verify ownership
+      const existingMeasurement = await storage.getMeasurementById(measurementId, userId);
+      if (!existingMeasurement) {
+        return res.status(404).json({ message: "Measurement not found" });
+      }
+      
+      const measurement = await storage.updateMeasurement(measurementId, req.body);
+      res.json(measurement);
+    } catch (error) {
+      console.error("Error updating measurement:", error);
+      res.status(500).json({ message: "Failed to update measurement" });
+    }
+  });
+
   app.put('/api/measurements/:id', isAuthenticated, async (req: any, res) => {
     try {
       const id = parseInt(req.params.id);

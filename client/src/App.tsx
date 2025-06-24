@@ -8,6 +8,7 @@ import BottomNav from "@/components/ui/bottom-nav";
 import Landing from "@/pages/landing";
 import Home from "@/pages/home";
 import AddMeasurement from "@/pages/add-measurement";
+import EditMeasurement from "@/pages/edit-measurement";
 import Statistics from "@/pages/statistics";
 import History from "@/pages/history";
 import DoctorAccess from "@/pages/doctor-access";
@@ -27,6 +28,7 @@ function Router() {
           <Route path="/" component={Home} />
           <Route path="/measurements" component={Measurements} />
           <Route path="/add-measurement" component={AddMeasurement} />
+          <Route path="/edit-measurement/:id" component={EditMeasurement} />
           <Route path="/statistics" component={Statistics} />
           <Route path="/history" component={History} />
           <Route path="/doctor-access" component={DoctorAccess} />

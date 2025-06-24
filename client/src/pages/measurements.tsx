@@ -194,13 +194,15 @@ export default function Measurements() {
                                 </p>
                               </div>
                               <div className="flex flex-col space-y-1">
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  className="w-8 h-8 p-0 text-gray-500 hover:text-primary"
-                                >
-                                  <Edit size={14} />
-                                </Button>
+                                <Link href={`/edit-measurement/${measurement.id}`}>
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="w-8 h-8 p-0 text-gray-500 hover:text-primary"
+                                  >
+                                    <Edit size={14} />
+                                  </Button>
+                                </Link>
                                 <Button
                                   variant="ghost"
                                   size="sm"

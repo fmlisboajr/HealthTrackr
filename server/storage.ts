@@ -27,6 +27,7 @@ export interface IStorage {
   // Measurement operations
   createMeasurement(measurement: InsertMeasurement): Promise<Measurement>;
   getMeasurements(userId: string, limit?: number): Promise<Measurement[]>;
+  getMeasurementById(id: number, userId: string): Promise<Measurement | undefined>;
   getMeasurementsByDateRange(userId: string, startDate: Date, endDate: Date): Promise<Measurement[]>;
   updateMeasurement(id: number, measurement: Partial<InsertMeasurement>): Promise<Measurement>;
   deleteMeasurement(id: number, userId: string): Promise<void>;
@@ -100,6 +101,14 @@ export class DatabaseStorage implements IStorage {
       .where(eq(measurements.userId, userId))
       .orderBy(desc(measurements.measuredAt))
       .limit(limit);
+  }
+
+  async getMeasurementById(id: number, userId: string): Promise<Measurement | undefined> {
+    const [measurement] = await db
+      .select()
+      .from(measurements)
+      .where(and(eq(measurements.id, id), eq(measurements.userId, userId)));
+    return measurement;
   }
 
   async getMeasurementsByDateRange(userId: string, startDate: Date, endDate: Date): Promise<Measurement[]> {
