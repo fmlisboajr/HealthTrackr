@@ -42,10 +42,12 @@ function AppContent() {
   const { isAuthenticated, isLoading } = useAuth();
 
   return (
-    <div className="min-h-screen pb-20">
-      <Router />
+    <>
+      <div className="min-h-screen pb-20">
+        <Router />
+      </div>
       {isAuthenticated && !isLoading && <BottomNav />}
-    </div>
+    </>
   );
 }
 

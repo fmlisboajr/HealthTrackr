@@ -12,7 +12,7 @@ export default function BottomNav() {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-gray-200 z-50">
+    <nav className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-gray-200 z-[9999]">
       <div className="max-w-md mx-auto px-4 py-2">
         <div className="flex justify-around">
           {navItems.map(({ path, icon: Icon, label }) => {
