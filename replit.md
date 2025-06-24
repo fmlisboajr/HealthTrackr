@@ -118,6 +118,7 @@ Changelog:
 - Fixed navigation alignment and implemented global bottom navigation
 - Optimized layout by moving dates inside measurement cards
 - Finalized bottom navigation menu with proper z-index and positioning
+- Resolved preview display issue - menu works correctly in new tab/window
 - Application ready for deployment with all features working correctly
 ```
 

@@ -278,11 +278,6 @@ export default function Home() {
           </GlassCard>
         </Link>
       </main>
-      
-      {/* Menu de teste - remover depois */}
-      <div className="fixed bottom-0 left-0 right-0 bg-red-500 text-white text-center py-2 z-[99999]">
-        MENU DE TESTE - SE VOCÊ VÊ ISSO, O PROBLEMA FOI RESOLVIDO
-      </div>
     </div>
   );
 }
