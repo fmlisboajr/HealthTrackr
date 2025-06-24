@@ -147,76 +147,75 @@ export default function Measurements() {
 
         {/* Measurements List */}
         {Object.keys(groupedMeasurements).length > 0 ? (
-          <div className="space-y-6">
+          <div className="space-y-3">
             {Object.entries(groupedMeasurements)
               .sort(([dateA], [dateB]) => new Date(dateB.split('/').reverse().join('-')).getTime() - new Date(dateA.split('/').reverse().join('-')).getTime())
               .map(([date, dateMeasurements]) => (
-                <div key={date}>
-                  <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-3 px-2">
-                    {date}
-                  </h3>
-                  <div className="space-y-3">
-                    {dateMeasurements
-                      .sort((a, b) => new Date(b.measuredAt).getTime() - new Date(a.measuredAt).getTime())
-                      .map((measurement) => {
-                        const type = measurementTypes.find(t => t.id === measurement.measurementTypeId);
-                        const context = foodContexts.find(c => c.id === measurement.foodContextId);
-                        
-                        return (
-                          <GlassCard key={measurement.id} className="p-4 shadow-lg">
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center space-x-3">
-                                <div className="w-3 h-3 rounded-full bg-primary"></div>
-                                <div>
-                                  <p className="font-medium text-gray-800 dark:text-white">
-                                    {type?.name || "Medição"}
+                <div key={date} className="space-y-2">
+                  {dateMeasurements
+                    .sort((a, b) => new Date(b.measuredAt).getTime() - new Date(a.measuredAt).getTime())
+                    .map((measurement) => {
+                      const type = measurementTypes.find(t => t.id === measurement.measurementTypeId);
+                      const context = foodContexts.find(c => c.id === measurement.foodContextId);
+                      const measurementDate = new Date(measurement.measuredAt).toLocaleDateString('pt-BR');
+                      
+                      return (
+                        <GlassCard key={measurement.id} className="p-4 shadow-lg">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-3">
+                              <div className="w-3 h-3 rounded-full bg-primary"></div>
+                              <div>
+                                <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                                  {measurementDate}
+                                </p>
+                                <p className="font-medium text-gray-800 dark:text-white">
+                                  {type?.name || "Medição"}
+                                </p>
+                                <p className="text-sm text-gray-600 dark:text-gray-300">
+                                  {context?.name || "Sem contexto"}
+                                </p>
+                                {measurement.notes && (
+                                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                    {measurement.notes}
                                   </p>
-                                  <p className="text-sm text-gray-600 dark:text-gray-300">
-                                    {context?.name || "Sem contexto"}
-                                  </p>
-                                  {measurement.notes && (
-                                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                                      {measurement.notes}
-                                    </p>
-                                  )}
-                                </div>
-                              </div>
-                              <div className="flex items-center space-x-2">
-                                <div className="text-right">
-                                  <p className="font-bold text-gray-800 dark:text-white">
-                                    {measurement.value} {type?.unit}
-                                  </p>
-                                  <p className="text-xs text-gray-500">
-                                    {new Date(measurement.measuredAt).toLocaleTimeString('pt-BR', {
-                                      hour: '2-digit',
-                                      minute: '2-digit'
-                                    })}
-                                  </p>
-                                </div>
-                                <div className="flex flex-col space-y-1">
-                                  <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    className="w-8 h-8 p-0 text-gray-500 hover:text-primary"
-                                  >
-                                    <Edit size={14} />
-                                  </Button>
-                                  <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    onClick={() => deleteMeasurement.mutate(measurement.id)}
-                                    disabled={deleteMeasurement.isPending}
-                                    className="w-8 h-8 p-0 text-gray-500 hover:text-red-500"
-                                  >
-                                    <Trash2 size={14} />
-                                  </Button>
-                                </div>
+                                )}
                               </div>
                             </div>
-                          </GlassCard>
-                        );
-                      })}
-                  </div>
+                            <div className="flex items-center space-x-2">
+                              <div className="text-right">
+                                <p className="font-bold text-gray-800 dark:text-white">
+                                  {measurement.value} {type?.unit}
+                                </p>
+                                <p className="text-xs text-gray-500">
+                                  {new Date(measurement.measuredAt).toLocaleTimeString('pt-BR', {
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                  })}
+                                </p>
+                              </div>
+                              <div className="flex flex-col space-y-1">
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="w-8 h-8 p-0 text-gray-500 hover:text-primary"
+                                >
+                                  <Edit size={14} />
+                                </Button>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => deleteMeasurement.mutate(measurement.id)}
+                                  disabled={deleteMeasurement.isPending}
+                                  className="w-8 h-8 p-0 text-gray-500 hover:text-red-500"
+                                >
+                                  <Trash2 size={14} />
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
+                        </GlassCard>
+                      );
+                    })}
                 </div>
               ))}
           </div>
