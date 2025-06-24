@@ -33,7 +33,9 @@ export default function Measurements() {
 
   const deleteMeasurement = useMutation({
     mutationFn: async (id: number) => {
-      await apiRequest("DELETE", `/api/measurements/${id}`);
+      await apiRequest(`/api/measurements/${id}`, {
+        method: "DELETE",
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/measurements"] });

@@ -82,10 +82,11 @@ export default function EditMeasurement(props: any) {
         ...data,
         measuredAt: new Date(data.measuredAt).toISOString(),
       };
-      await apiRequest(`/api/measurements/${measurementId}`, {
+      const response = await apiRequest(`/api/measurements/${measurementId}`, {
         method: "PATCH",
         body: JSON.stringify(measurementData),
       });
+      return response.json();
     },
     onSuccess: () => {
       toast({

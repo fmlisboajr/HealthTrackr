@@ -38,7 +38,10 @@ export default function DoctorAccess() {
 
   const addDoctorMutation = useMutation({
     mutationFn: async (data: DoctorAccessForm) => {
-      await apiRequest("POST", "/api/doctor-access", data);
+      await apiRequest("/api/doctor-access", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/doctor-access"] });

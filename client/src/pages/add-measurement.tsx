@@ -60,11 +60,14 @@ export default function AddMeasurement() {
 
   const createMeasurement = useMutation({
     mutationFn: async (data: MeasurementForm) => {
-      await apiRequest("POST", "/api/measurements", {
-        ...data,
-        value: data.value,
-        measuredAt: new Date(data.measuredAt).toISOString(),
-        foodContextId: selectedContext || undefined,
+      await apiRequest("/api/measurements", {
+        method: "POST",
+        body: JSON.stringify({
+          ...data,
+          value: data.value,
+          measuredAt: new Date(data.measuredAt).toISOString(),
+          foodContextId: selectedContext || undefined,
+        }),
       });
     },
     onSuccess: () => {
