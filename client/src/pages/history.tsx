@@ -132,32 +132,32 @@ export default function History() {
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-3 gap-4">
-        <GlassCard className="text-center">
-          <div className="flex flex-col items-center space-y-2">
-            <TrendingUp className="w-8 h-8 text-blue-500" />
+      <div className="grid grid-cols-3 gap-3">
+        <GlassCard className="text-center p-4">
+          <div className="flex flex-col items-center space-y-1">
+            <TrendingUp className="w-6 h-6 text-blue-500" />
             <div className="text-2xl font-bold text-blue-600">{stats.average}</div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-xs text-gray-600 dark:text-gray-400 leading-tight">
               Média<br />{selectedType?.unit}
             </div>
           </div>
         </GlassCard>
 
-        <GlassCard className="text-center">
-          <div className="flex flex-col items-center space-y-2">
-            <Activity className="w-8 h-8 text-green-500" />
+        <GlassCard className="text-center p-4">
+          <div className="flex flex-col items-center space-y-1">
+            <Activity className="w-6 h-6 text-green-500" />
             <div className="text-2xl font-bold text-green-600">{stats.count}</div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-xs text-gray-600 dark:text-gray-400 leading-tight">
               Medições<br />total
             </div>
           </div>
         </GlassCard>
 
-        <GlassCard className="text-center">
-          <div className="flex flex-col items-center space-y-2">
-            <Calendar className="w-8 h-8 text-purple-500" />
+        <GlassCard className="text-center p-4">
+          <div className="flex flex-col items-center space-y-1">
+            <Calendar className="w-6 h-6 text-purple-500" />
             <div className="text-2xl font-bold text-purple-600">{stats.activeDays}</div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-xs text-gray-600 dark:text-gray-400 leading-tight">
               Dias<br />ativos
             </div>
           </div>
@@ -241,25 +241,22 @@ export default function History() {
       )}
 
       {/* Detailed Summary */}
-      <GlassCard>
-        <CardHeader>
-          <CardTitle>Resumo Detalhado</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {contextStats.map((context) => (
-            <div key={context.name} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-              <div>
-                <div className="font-medium text-gray-900 dark:text-white">{context.name}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">{context.count} medições</div>
-              </div>
-              <div className="text-right">
-                <div className="text-lg font-bold text-primary">{context.average} {selectedType?.unit}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">média</div>
-              </div>
+      <div className="space-y-6">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white">Resumo Detalhado</h2>
+        
+        {contextStats.map((context) => (
+          <div key={context.name} className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-4">
+            <div>
+              <div className="text-lg font-semibold text-gray-900 dark:text-white">{context.name}</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">{context.count} medições</div>
             </div>
-          ))}
-        </CardContent>
-      </GlassCard>
+            <div className="text-right">
+              <div className="text-xl font-bold text-blue-600">{context.average} {selectedType?.unit}</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">média</div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
