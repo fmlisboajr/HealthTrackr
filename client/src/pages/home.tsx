@@ -135,7 +135,10 @@ export default function Home() {
                       {glucoseType.name}
                     </p>
                     <p className="text-sm text-gray-600 dark:text-gray-300">
-                      Última: {new Date(recentGlucose.measuredAt).toLocaleTimeString('pt-BR', { 
+                      Última: {new Date(recentGlucose.measuredAt).toLocaleDateString('pt-BR', {
+                        day: '2-digit',
+                        month: '2-digit'
+                      })} - {new Date(recentGlucose.measuredAt).toLocaleTimeString('pt-BR', { 
                         hour: '2-digit', 
                         minute: '2-digit' 
                       })}
