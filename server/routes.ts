@@ -129,9 +129,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.put('/api/measurements/:id', isAuthenticated, async (req: any, res) => {
     try {
       const id = parseInt(req.params.id);
-      const measurementData = insertMeasurementSchema.partial().parse(req.body);
       
-      const measurement = await storage.updateMeasurement(id, measurementData);
+      // Convert measuredAt to preserve local time if provided
+      const measurementData = {
+        ...req.body,
+        measuredAt: req.body.measuredAt ? new Date(req.body.measuredAt + ':00') : undefined,
+      };
+      
+      const validatedData = insertMeasurementSchema.partial().parse(measurementData);
+      const measurement = await storage.updateMeasurement(id, validatedData);
       res.json(measurement);
     } catch (error) {
       if (error instanceof z.ZodError) {

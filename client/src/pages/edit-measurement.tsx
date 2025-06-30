@@ -60,11 +60,15 @@ export default function EditMeasurement(props: any) {
 
   // Update form when measurement data loads
   useEffect(() => {
-    if (measurement) {
+    if (measurement && measurementTypes.length > 0 && foodContexts.length > 0) {
+      // Format date/time to local timezone for the datetime-local input
       const measuredAt = new Date(measurement.measuredAt);
-      const formattedDateTime = new Date(measuredAt.getTime() - measuredAt.getTimezoneOffset() * 60000)
-        .toISOString()
-        .slice(0, 16);
+      const year = measuredAt.getFullYear();
+      const month = String(measuredAt.getMonth() + 1).padStart(2, '0');
+      const day = String(measuredAt.getDate()).padStart(2, '0');
+      const hours = String(measuredAt.getHours()).padStart(2, '0');
+      const minutes = String(measuredAt.getMinutes()).padStart(2, '0');
+      const formattedDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
 
       form.reset({
         value: measurement.value.toString(),
@@ -74,7 +78,7 @@ export default function EditMeasurement(props: any) {
         notes: measurement.notes || "",
       });
     }
-  }, [measurement, form]);
+  }, [measurement, measurementTypes, foodContexts, form]);
 
   const updateMeasurement = useMutation({
     mutationFn: async (data: MeasurementForm) => {
