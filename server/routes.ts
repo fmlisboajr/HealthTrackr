@@ -65,10 +65,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const userId = req.user.claims.sub;
       console.log("Received measurement data:", req.body);
       
+      // Convert measuredAt to local timezone date
+      const measuredAtLocal = new Date(req.body.measuredAt + ':00'); // Add seconds if not present
+      
       const measurementData = insertMeasurementSchema.parse({
         ...req.body,
         userId,
-        measuredAt: new Date(req.body.measuredAt),
+        measuredAt: measuredAtLocal,
       });
       
       const measurement = await storage.createMeasurement(measurementData);
@@ -109,10 +112,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ message: "Measurement not found" });
       }
       
-      // Convert measuredAt string to Date object if it exists
+      // Convert measuredAt string to Date object if it exists, preserving local time
       const updateData = {
         ...req.body,
-        measuredAt: req.body.measuredAt ? new Date(req.body.measuredAt) : undefined,
+        measuredAt: req.body.measuredAt ? new Date(req.body.measuredAt + ':00') : undefined,
       };
       
       const measurement = await storage.updateMeasurement(measurementId, updateData);
