@@ -168,7 +168,10 @@ export default function Measurements() {
                               <div className="w-3 h-3 rounded-full bg-primary"></div>
                               <div>
                                 <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
-                                  {measurementDate} {new Date(measurement.measuredAt).toLocaleTimeString('pt-BR', {
+                                  {new Date(measurement.measuredAt).toLocaleDateString('pt-BR', {
+                                    day: '2-digit',
+                                    month: '2-digit'
+                                  })} - {new Date(measurement.measuredAt).toLocaleTimeString('pt-BR', {
                                     hour: '2-digit',
                                     minute: '2-digit'
                                   })}

@@ -207,7 +207,10 @@ export default function Home() {
                           {measurement.value} {type?.unit}
                         </p>
                         <p className="text-xs text-gray-500">
-                          {new Date(measurement.measuredAt).toLocaleTimeString('pt-BR', {
+                          {new Date(measurement.measuredAt).toLocaleDateString('pt-BR', {
+                            day: '2-digit',
+                            month: '2-digit'
+                          })} - {new Date(measurement.measuredAt).toLocaleTimeString('pt-BR', {
                             hour: '2-digit',
                             minute: '2-digit'
                           })}
