@@ -69,7 +69,7 @@ export default function EditMeasurement(props: any) {
       form.reset({
         value: measurement.value.toString(),
         measurementTypeId: measurement.measurementTypeId.toString(),
-        foodContextId: measurement.foodContextId.toString(),
+        foodContextId: measurement.foodContextId?.toString() || "",
         measuredAt: formattedDateTime,
         notes: measurement.notes || "",
       });
